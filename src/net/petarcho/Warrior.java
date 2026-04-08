@@ -7,9 +7,12 @@ public class Warrior extends Character{
         gadget = false;
     }
 
-    public void basic(Character target) {
+    public boolean basic(Character target) {
         System.out.println("Warrior dealt 120 damage to " + target.type);
         target.health -= 120;
+        this.afterAction();
+        ((Mage)(teamate)).afterAction();
+        return false;
     }
 
     public boolean ultimate(Character target) {
@@ -17,6 +20,8 @@ public class Warrior extends Character{
             System.out.println("Warrior dealt 260 damage to " + target.type);
             target.health -= 260;
             this.energy -= 50;
+            this.afterAction();
+            ((Mage)(teamate)).afterAction();
             return false;
         }
         else {
@@ -30,11 +35,27 @@ public class Warrior extends Character{
             System.out.println("Gadget activated!");
             this.gadget = true;
             this.canUseGadget = false;
+            this.afterAction();
+            ((Mage)(teamate)).afterAction();
             return false;
         }
         else {
             System.out.println("The gadget has already been used!");
             return true;
+        }
+    }
+
+    protected void afterAction() {
+        if (targetedByAssassin && reallyTargetedByAssassin) {
+            if (random.nextBoolean() && random.nextBoolean()) {
+                this.health -= 350;
+                System.out.println("Assassin dealt 350 damage to Mage");
+                targetedByAssassin = false;
+                reallyTargetedByAssassin = false;
+            }
+        }
+        if (targetedByAssassin && !reallyTargetedByAssassin) {
+            reallyTargetedByAssassin = true;
         }
     }
 }

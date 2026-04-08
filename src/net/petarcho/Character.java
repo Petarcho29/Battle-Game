@@ -1,12 +1,18 @@
 package net.petarcho;
 
+import java.util.Random;
+
 public abstract class Character {
+    protected Random random;
     protected String type;
     protected int health;
     protected int energy;
     protected final int maxEnergy;
     protected boolean canUseGadget;
     protected boolean targetedByAssassin;
+    protected boolean reallyTargetedByAssassin;
+    protected boolean targetedByMage;
+    protected Character teamate;
 
     public Character(String type, int health) {
         this.type = type;
@@ -15,5 +21,8 @@ public abstract class Character {
         this.maxEnergy = 100;
         this.canUseGadget = true;
         this.targetedByAssassin = false;
+        this.reallyTargetedByAssassin = false;
+        this.targetedByMage = false;
+        this.random = new Random();
     }
 }

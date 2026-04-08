@@ -1,5 +1,7 @@
 package net.petarcho;
 
+import java.lang.invoke.LambdaMetafactory;
+
 public class Assassin extends Character{
     protected boolean defend;
     protected boolean skip;
@@ -9,9 +11,11 @@ public class Assassin extends Character{
         this.skip = false;
     }
 
-    public void basic(Character target) {
+    public boolean basic(Character target) {
         System.out.println("Assassin dealt 90 damage to " + target.type);
         target.health -= 90;
+        afterAction(target);
+        return false;
     }
 
     public boolean ultimate(Character target) {
@@ -19,6 +23,8 @@ public class Assassin extends Character{
             System.out.println("Assasin targeted " + target.type);
             target.targetedByAssassin = true;
             this.energy -= 70;
+            this.afterActionMage();
+            ((Tank)(teamate)).afterActionMage();
             return false;
         }
         else {
@@ -27,16 +33,53 @@ public class Assassin extends Character{
         }
     }
 
-    public boolean gadget(Character target) {
+    public boolean gadget() {
         if (this.canUseGadget) {
             System.out.println("Gadget activated!");
             this.skip = true;
             this.canUseGadget = false;
+            this.afterActionMage();
+            ((Tank)(teamate)).afterActionMage();
             return false;
         }
         else {
             System.out.println("The gadget has already been used!");
             return true;
+        }
+    }
+
+    protected void afterAction(Character ch) {
+        if (ch.type.equals("Warrior")) {
+            if (((Warrior)(ch)).gadget) {
+                if (defend){
+                    defend = false;
+                    System.out.println("Warrior reflected 90 damage to Assassin, but Assassin had a shield from Tank");
+                }
+                else {
+                    this.health -= 90;
+                    System.out.println("Warrior reflected 90 damage to Assassin");
+                }
+                ((Warrior)(ch)).gadget = false;
+            }
+        }
+        if (targetedByMage){
+            if (!defend) {
+                this.health =- 140;
+                System.out.println("Mage dealt 140 damage to Assassin");
+            }else
+                System.out.println("Assassin had shield from Tank so didn't take damage");
+            defend = false;
+        }
+        ((Tank)(teamate)).afterActionMage();
+    }
+    protected void afterActionMage() {
+        if (targetedByMage){
+            if (!defend) {
+                this.health =- 140;
+                System.out.println("Mage dealt 140 damage to Assassin");
+            }else
+                System.out.println("Assassin had shield from Tank so didn't take damage");
+            defend = false;
         }
     }
 }

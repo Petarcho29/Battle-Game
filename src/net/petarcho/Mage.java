@@ -10,7 +10,9 @@ public class Mage extends Character{
 
     public boolean basic(Character target) {
         System.out.println("Mage will deal damage to " + target.type);
-        doBasic = true;
+        target.targetedByMage = true;
+        this.afterAction();
+        ((Warrior)(teamate)).afterAction();
         return false;
     }
 
@@ -20,6 +22,8 @@ public class Mage extends Character{
             t1.health -= 180;
             t2.health -= 180;
             this.energy -= 50;
+            this.afterAction();
+            ((Warrior)(teamate)).afterAction();
             return false;
         }
         else {
@@ -41,12 +45,27 @@ public class Mage extends Character{
             else
                 target.health += 380;
             System.out.println("Warrior Healed to " + target.health);
-
+            this.afterAction();
+            ((Warrior)(teamate)).afterAction();
             return false;
         }else {
             System.out.println("The gadget has already been used!");
             return true;
         }
 
+    }
+
+    protected void afterAction() {
+        if (targetedByAssassin && reallyTargetedByAssassin) {
+            if (random.nextBoolean() && random.nextBoolean()) {
+                this.health -= 350;
+                System.out.println("Assassin dealt 350 damage to Mage");
+                targetedByAssassin = false;
+                reallyTargetedByAssassin = false;
+            }
+        }
+        if (targetedByAssassin && !reallyTargetedByAssassin) {
+            reallyTargetedByAssassin = true;
+        }
     }
 }
