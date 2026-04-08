@@ -1,19 +1,21 @@
+package net.petarcho;
+
 public class Mage extends Character{
     private boolean doBasic;
     public Mage() {
-        super("Mage", 900);
+        super("net.petarcho.Mage", 900);
         this.doBasic = false;
     }
 
     protected boolean basic(Character target) {
-        System.out.println("Mage will deal damage to " + target.type);
+        System.out.println("net.petarcho.Mage will deal damage to " + target.type);
         doBasic = true;
         return false;
     }
 
     protected boolean ultimate(Character t1, Character t2) {
         if (this.energy >= 60) {
-            System.out.println("Mage dealt 180 damage to both Tank and Assassin");
+            System.out.println("net.petarcho.Mage dealt 180 damage to both Tank and Assassin");
             t1.health -= 180;
             t2.health -= 180;
             this.energy -= 50;

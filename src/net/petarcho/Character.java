@@ -1,4 +1,4 @@
-import java.util.Calendar;
+package net.petarcho;
 
 public abstract class Character {
     protected String type;
