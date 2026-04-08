@@ -1,22 +1,24 @@
 package net.petarcho;
 
-public class Warrior extends Character{
-    protected boolean gadget;
-    public Warrior() {
-        super("Warrior", 1200);
-        gadget = false;
+public class Assassin extends Character{
+    protected boolean defend;
+    protected boolean skip;
+    public Assassin() {
+        super("Assassin", 800);
+        this.defend = false;
+        this.skip = false;
     }
 
     public void basic(Character target) {
-        System.out.println("Warrior dealt 120 damage to " + target.type);
-        target.health -= 120;
+        System.out.println("Assassin dealt 90 damage to " + target.type);
+        target.health -= 90;
     }
 
     public boolean ultimate(Character target) {
-        if (this.energy >= 50) {
-            System.out.println("Warrior dealt 260 damage to " + target.type);
-            target.health -= 260;
-            this.energy -= 50;
+        if (this.energy >= 70) {
+            System.out.println("Assasin targeted " + target.type);
+            target.targetedByAssassin = true;
+            this.energy -= 70;
             return false;
         }
         else {
@@ -28,7 +30,7 @@ public class Warrior extends Character{
     public boolean gadget(Character target) {
         if (this.canUseGadget) {
             System.out.println("Gadget activated!");
-            this.gadget = true;
+            this.skip = true;
             this.canUseGadget = false;
             return false;
         }

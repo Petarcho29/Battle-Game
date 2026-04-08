@@ -6,6 +6,7 @@ public abstract class Character {
     protected int energy;
     protected final int maxEnergy;
     protected boolean canUseGadget;
+    protected boolean targetedByAssassin;
 
     public Character(String type, int health) {
         this.type = type;
@@ -13,5 +14,6 @@ public abstract class Character {
         this.health = health;
         this.maxEnergy = 100;
         this.canUseGadget = true;
+        this.targetedByAssassin = false;
     }
 }
