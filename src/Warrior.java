@@ -1,17 +1,15 @@
 public class Warrior extends Character{
     private boolean gadget;
-    public Warrior(String type, int health) {
+    public Warrior() {
         super("Warrior", 1200);
         gadget = false;
     }
 
-    @Override
     protected void basic(Character target) {
         System.out.println("Warrior dealt 120 damage to " + target.type);
         target.health -= 120;
     }
 
-    @Override
     protected boolean ultimate(Character target) {
         if (this.energy >= 50) {
             System.out.println("Warrior dealt 260 damage to " + target.type);
@@ -25,7 +23,6 @@ public class Warrior extends Character{
         }
     }
 
-    @Override
     protected boolean gadget(Character target) {
         if (this.canUseGadget) {
             System.out.println("Gadget activated!");

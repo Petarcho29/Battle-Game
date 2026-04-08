@@ -1,3 +1,5 @@
+import java.util.Calendar;
+
 public abstract class Character {
     protected String type;
     protected int health;
@@ -12,7 +14,4 @@ public abstract class Character {
         this.maxEnergy = 100;
         this.canUseGadget = true;
     }
-    protected abstract void basic(Character target);
-    protected abstract boolean ultimate(Character target);
-    protected abstract boolean gadget(Character target);
 }
