@@ -1,5 +1,6 @@
 package net.petarcho;
 
+import javax.sound.midi.Soundbank;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -104,10 +105,13 @@ public class Game {
             }
         }
         if (attacker.equals("warrior") && warrior.energy <= 90)
-            tank.energy += 10;
+            warrior.energy += 10;
         if (attacker.equals("mage") && mage.energy <= 90)
-            assassin.energy += 10;
-        player2Turn();
+            mage.energy += 10;
+        if (tank.isAlive() || assassin.isAlive())
+            player2Turn();
+        else
+            winp1();
     }
 
 
@@ -194,7 +198,11 @@ public class Game {
             player2Turn();
             assassin.skip = false;
         }else {
-            player1Turn();
+            if (warrior.isAlive() || mage.isAlive())
+                player1Turn();
+            else
+                winp2();
+
         }
     }
 
@@ -223,5 +231,36 @@ public class Game {
 
 
     private static void displayInfo() {
+        System.out.println("--------------\nDisplay Info\n--------------\nPlayer 1");
+        System.out.println("  Warrior:");
+        System.out.println("    Health: "+ warrior.health + "/1200");
+        System.out.println("    Energy: "+ warrior.energy);
+        System.out.println((warrior.canUseGadget)?"    Can use gadget":"    Cannot use gadget");
+        System.out.println((warrior.targetedByAssassin)?"    Targeted by Assassin":"    Not targeted by Assassin");
+
+        System.out.println("  Mage:");
+        System.out.println("    Health: "+ mage.health + "/900");
+        System.out.println("    Energy: "+ mage.energy);
+        System.out.println((mage.canUseGadget)?"    Can use gadget":"    Cannot use gadget");
+        System.out.println((mage.targetedByAssassin)?"    Targeted by Assassin":"    Not targeted by Assassin");
+        System.out.println("\nPlayer 2");
+        System.out.println("  Tank:");
+        System.out.println("    Health: "+ tank.health + "/1600");
+        System.out.println("    Energy: "+ tank.energy);
+        System.out.println((tank.canUseGadget)?"    Can use gadget":"    Cannot use gadget");
+        System.out.println((tank.targetedByMage)?"    Targeted by Mage":"    Not targeted by Mage");
+
+        System.out.println("  Assassin:");
+        System.out.println("    Health: "+ assassin.health + "/800");
+        System.out.println("    Energy: "+ assassin.energy);
+        System.out.println((assassin.canUseGadget)?"    Can use gadget":"    Cannot use gadget");
+        System.out.println((assassin.targetedByMage)?"    Targeted by Mage":"    Not targeted by Mage");
+    }
+
+    private static void winp1(){
+        System.out.println("------------------------\nPlayer 1 Won!!!\n------------------------");
+    }
+    private static void winp2() {
+        System.out.println("------------------------\nPlayer 2 Won!!!\n------------------------");
     }
 }
