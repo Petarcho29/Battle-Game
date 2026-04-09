@@ -20,7 +20,7 @@ public class Mage extends Character{
             System.out.println("Mage dealt 180 damage to both Tank and Assassin");
             t1.health -= 180;
             t2.health -= 180;
-            this.energy -= 50;
+            this.energy -= 60;
             this.afterAction();
             ((Warrior)(teamate)).afterAction();
             result = false;
