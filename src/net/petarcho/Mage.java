@@ -1,11 +1,9 @@
 package net.petarcho;
 
 public class Mage extends Character{
-    protected boolean doBasic;
     protected boolean targetedByAssassin;
     public Mage() {
         super("Mage", 900);
-        this.doBasic = false;
     }
 
     public boolean basic(Character target) {
@@ -17,6 +15,7 @@ public class Mage extends Character{
     }
 
     public boolean ultimate(Character t1, Character t2) {
+        boolean result;
         if (this.energy >= 60) {
             System.out.println("Mage dealt 180 damage to both Tank and Assassin");
             t1.health -= 180;
@@ -24,15 +23,17 @@ public class Mage extends Character{
             this.energy -= 50;
             this.afterAction();
             ((Warrior)(teamate)).afterAction();
-            return false;
+            result = false;
         }
         else {
             System.out.println("Not enough energy!");
-            return true;
+            result = true;
         }
+        return result;
     }
 
     public boolean gadget(Character target) {
+        boolean result;
         if (this.canUseGadget) {
             System.out.println("Gadget activated!");
             if (this.health >= 480)
@@ -47,12 +48,13 @@ public class Mage extends Character{
             System.out.println("Warrior Healed to " + target.health);
             this.afterAction();
             ((Warrior)(teamate)).afterAction();
-            return false;
+            result = false;
         }else {
             System.out.println("The gadget has already been used!");
-            return true;
+            result = true;
         }
 
+        return result;
     }
 
     protected void afterAction() {

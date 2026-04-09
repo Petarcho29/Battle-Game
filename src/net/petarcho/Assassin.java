@@ -19,33 +19,37 @@ public class Assassin extends Character{
     }
 
     public boolean ultimate(Character target) {
-        if (this.energy >= 70) {
-            System.out.println("Assasin targeted " + target.type);
+        boolean result;
+        if (this.energy >= 80) {
+            System.out.println("Assassin targeted " + target.type);
             target.targetedByAssassin = true;
-            this.energy -= 70;
+            this.energy -= 80;
             this.afterActionMage();
             ((Tank)(teamate)).afterActionMage();
-            return false;
+            result = false;
         }
         else {
             System.out.println("Not enough energy!");
-            return true;
+            result = true;
         }
+        return result;
     }
 
     public boolean gadget() {
+        boolean result;
         if (this.canUseGadget) {
             System.out.println("Gadget activated!");
             this.skip = true;
             this.canUseGadget = false;
             this.afterActionMage();
             ((Tank)(teamate)).afterActionMage();
-            return false;
+            result = false;
         }
         else {
             System.out.println("The gadget has already been used!");
-            return true;
+            result = true;
         }
+        return result;
     }
 
     protected void afterAction(Character ch) {

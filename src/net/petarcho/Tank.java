@@ -14,21 +14,24 @@ public class Tank extends Character{
     }
 
     public boolean ultimate() {
+        boolean result;
         if (this.energy >= 80) {
             System.out.println("Tank is defending Assassin from incoming attack" + ((Assassin)(teamate)).type);
             ((Assassin)(teamate)).defend = true;
             this.energy -= 80;
             this.afterActionMage();
             ((Assassin)(teamate)).afterActionMage();
-            return false;
+            result = false;
         }
         else {
             System.out.println("Not enough energy!");
-            return true;
+            result = true;
         }
+        return result;
     }
 
-    public boolean gadget(Character target) {
+    public boolean gadget() {
+        boolean result;
         if (this.canUseGadget) {
             System.out.println("Gadget activated!");
             if (this.health >= 1200)
@@ -39,12 +42,13 @@ public class Tank extends Character{
             this.canUseGadget = false;
             this.afterActionMage();
             ((Assassin)(teamate)).afterActionMage();
-            return false;
+            result = false;
         }
         else {
             System.out.println("The gadget is already used!");
-            return true;
+            result = true;
         }
+        return result;
     }
 
     protected void afterAction(Character ch, int amount) {

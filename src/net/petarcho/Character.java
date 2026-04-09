@@ -25,4 +25,12 @@ public abstract class Character {
         this.targetedByMage = false;
         this.random = new Random();
     }
+    public boolean isAlive() {
+        if (this.health <= 0) {
+            this.health = 0;
+            return false;
+        }
+        else
+            return true;
+    }
 }

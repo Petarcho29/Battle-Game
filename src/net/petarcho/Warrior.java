@@ -16,33 +16,37 @@ public class Warrior extends Character{
     }
 
     public boolean ultimate(Character target) {
+        boolean result;
         if (this.energy >= 50) {
             System.out.println("Warrior dealt 260 damage to " + target.type);
             target.health -= 260;
             this.energy -= 50;
             this.afterAction();
             ((Mage)(teamate)).afterAction();
-            return false;
+            result = false;
         }
         else {
             System.out.println("Not enough energy!");
-            return true;
+            result = true;
         }
+        return result;
     }
 
-    public boolean gadget(Character target) {
+    public boolean gadget() {
+        boolean result;
         if (this.canUseGadget) {
             System.out.println("Gadget activated!");
             this.gadget = true;
             this.canUseGadget = false;
             this.afterAction();
             ((Mage)(teamate)).afterAction();
-            return false;
+            result = false;
         }
         else {
             System.out.println("The gadget has already been used!");
-            return true;
+            result = true;
         }
+        return result;
     }
 
     protected void afterAction() {
