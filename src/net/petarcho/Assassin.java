@@ -68,7 +68,7 @@ public class Assassin extends Character{
         }
         if (targetedByMage){
             if (!defend) {
-                this.health =- 140;
+                this.health -= 140;
                 System.out.println("Mage dealt 140 damage to Assassin");
             }else
                 System.out.println("Assassin had shield from Tank so didn't take damage");
@@ -79,7 +79,7 @@ public class Assassin extends Character{
     protected void afterActionMage() {
         if (targetedByMage){
             if (!defend) {
-                this.health =- 140;
+                this.health -= 140;
                 System.out.println("Mage dealt 140 damage to Assassin");
             }else
                 System.out.println("Assassin had shield from Tank so didn't take damage");
